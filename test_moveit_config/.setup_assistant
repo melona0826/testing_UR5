@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: test_description
+    relative_path: urdf/test_ur.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/test_ur.srdf
+  CONFIG:
+    author_name: KwonJin
+    author_email: kwonjin@kaist.ac.kr
+    generated_timestamp: 1641550564
