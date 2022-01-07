@@ -6,6 +6,6 @@ moveit_setup_assistant_config:
   SRDF:
     relative_path: config/test_ur.srdf
   CONFIG:
-    author_name: KwonJin
+    author_name: Kwon Jin
     author_email: kwonjin@kaist.ac.kr
-    generated_timestamp: 1641550564
+    generated_timestamp: 1641561409

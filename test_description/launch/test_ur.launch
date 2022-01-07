@@ -6,7 +6,7 @@
     <arg name = "transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
 
     <include file = "$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name = "world_name" default = "worlds/empty.world" />
+        <arg name = "world_name" default = "$(find test_description)/worlds/house_2.world" />
         <arg name = "paused" value = "$(arg paused)" />
         <arg name = "gui" value = "$(arg gui)" />
     </include>

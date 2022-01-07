@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name = "test_ur">
+
+    <xacro:include filename="$(find test_description)/urdf/test_ur.gazebo" />
+    <!-- <xacro:include filename="$(find test_description)/urdf/materials.xacro" /> -->
+
     <link name = "world"/>
     <link name = "desk">
         <inertial>
@@ -23,11 +27,7 @@
             </geometry>
         </collision>
     </link>
-    <gazebo reference = "desk">
-        <mu1>0.2</mu1>
-        <mu2>0.2</mu2>
-        <material>Gazebo/Blue</material>
-    </gazebo>
+
     <joint name = "world_joint" type = "fixed">
         <parent link = "world"/>
         <child link = "desk" />
@@ -37,13 +37,46 @@
     <xacro:arg name ="transmission_hw_interface" default = "hardware_interface/PositionJointInterface"/>
     <xacro:include filename = "$(find ur_description)/urdf/common.gazebo.xacro" />
     <xacro:include filename = "$(find ur_description)/urdf/ur5.urdf.xacro" />
-    <xacro:ur5_robot prefix = "" joint_limited = "false"
-        transmission_hw_interface = "$(arg transmission_hw_interface)"
-    />
+    <xacro:ur5_robot prefix = "" joint_limited = "true"
+        transmission_hw_interface = "$(arg transmission_hw_interface)" />
 
     <joint name = "base_joint" type = "fixed" >
         <parent link = "desk" />
         <child link = "base_link" />
         <origin xyz = "0 0 1" rpy = "0.0 0.0 0.0" />
     </joint>
+
+    <xacro:property name = "camera_width" value ="0.04" />
+
+    <joint name = "camera_joint" type = "fixed">
+        <origin xyz = "${camera_width} 0.05 0.01" rpy="0 0 1.57" />
+        <parent link = "wrist_3_link" />
+        <child link = "camera_link"/>
+    </joint>
+
+    <link name = "camera_link">
+        <collision>
+            <origin xyz = "0 0 0" rpy = "0 0 0"/>
+            <geometry>
+                <box size = "${camera_width} ${camera_width} ${camera_width}" />
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz = "0 0 0" rpy ="0 0 0"/>
+            <geometry>
+                <box size = "${camera_width} ${camera_width} ${camera_width}" />
+            </geometry>
+            <material name = "red"/>
+        </visual>
+
+        <inertial>
+            <mass value = "1e-5" />
+            <origin xyz = "0 0 0" rpy = "0 0 0"/>
+            <inertia ixx= "1e-6" ixy = "0" ixz = "0" iyy = "1e-6" iyz = "0" izz = "1e-6" />
+        </inertial>
+    </link>
+
+
+
 </robot>
